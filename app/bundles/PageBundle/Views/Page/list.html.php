@@ -66,6 +66,36 @@ if ('index' == $tmpl) {
                     'MauticCoreBundle:Helper:tableheader.html.php',
                     [
                         'sessionVar' => 'page',
+                        'orderBy'    => 'p.dateAdded',
+                        'text'       => 'mautic.lead.import.label.dateAdded',
+                        'class'      => 'col-page-dateAdded visible-md visible-lg',
+                    ]
+                );
+
+                echo $view->render(
+                    'MauticCoreBundle:Helper:tableheader.html.php',
+                    [
+                        'sessionVar' => 'page',
+                        'orderBy'    => 'p.dateModified',
+                        'text'       => 'mautic.lead.import.label.dateModified',
+                        'class'      => 'col-page-dateModified visible-md visible-lg',
+                    ]
+                );
+
+                echo $view->render(
+                    'MauticCoreBundle:Helper:tableheader.html.php',
+                    [
+                        'sessionVar' => 'page',
+                        'orderBy'    => 'p.createdByUser',
+                        'text'       => 'mautic.core.createdby',
+                        'class'      => 'col-page-createdByUser visible-md visible-lg',
+                    ]
+                );
+
+                echo $view->render(
+                    'MauticCoreBundle:Helper:tableheader.html.php',
+                    [
+                        'sessionVar' => 'page',
                         'orderBy'    => 'p.id',
                         'text'       => 'mautic.core.id',
                         'class'      => 'col-page-id visible-md visible-lg',
@@ -144,6 +174,9 @@ if ('index' == $tmpl) {
                         <span style="white-space: nowrap;"><span class="label label-default pa-4" style="border: 1px solid #d5d5d5; background: <?php echo $color; ?>;"> </span> <span><?php echo $catName; ?></span></span>
                     </td>
                     <td class="visible-md visible-lg"><?php echo $item->getHits(); ?></td>
+                    <td class="visible-md visible-lg"><?php echo $item->getDateAdded() ? $item->getDateAdded()->format('Y-m-d H:i:s') : ''; ?></td>
+                    <td class="visible-md visible-lg"><?php echo $item->getDateModified() ? $item->getDateModified()->format('Y-m-d H:i:s') : ''; ?></td>
+                    <td class="visible-md visible-lg"><?php echo $item->getCreatedByUser(); ?></td>
                     <td class="visible-md visible-lg"><?php echo $item->getId(); ?></td>
                 </tr>
             <?php endforeach; ?>
