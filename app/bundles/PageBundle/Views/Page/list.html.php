@@ -38,7 +38,6 @@ if ('index' == $tmpl) {
                         'orderBy'    => 'p.title',
                         'text'       => 'mautic.core.title',
                         'class'      => 'col-page-title',
-                        'default'    => true,
                     ]
                 );
 
@@ -79,6 +78,7 @@ if ('index' == $tmpl) {
                         'orderBy'    => 'p.dateModified',
                         'text'       => 'mautic.lead.import.label.dateModified',
                         'class'      => 'col-page-dateModified visible-md visible-lg',
+                        'default'    => true,
                     ]
                 );
 
