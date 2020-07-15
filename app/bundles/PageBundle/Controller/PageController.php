@@ -18,6 +18,7 @@ use Mautic\CoreBundle\Event\DetermineWinnerEvent;
 use Mautic\CoreBundle\Form\Type\BuilderSectionType;
 use Mautic\CoreBundle\Form\Type\DateRangeType;
 use Mautic\CoreBundle\Helper\InputHelper;
+use Mautic\FormBundle\Entity\SubmissionRepository;
 use Mautic\PageBundle\Entity\Page;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -153,17 +154,20 @@ class PageController extends FormController
         //retrieve a list of categories
         $categories = $this->getModel('page.page')->getLookupResults('category', '', 0);
 
+        $submissionModel = $this->getModel('form.submission');
+
         return $this->delegateView([
             'viewParameters' => [
-                'searchValue' => $search,
-                'items'       => $pages,
-                'categories'  => $categories,
-                'page'        => $page,
-                'limit'       => $limit,
-                'permissions' => $permissions,
-                'model'       => $model,
-                'tmpl'        => $tmpl,
-                'security'    => $this->get('mautic.security'),
+                'searchValue'     => $search,
+                'items'           => $pages,
+                'categories'      => $categories,
+                'page'            => $page,
+                'limit'           => $limit,
+                'permissions'     => $permissions,
+                'model'           => $model,
+                'tmpl'            => $tmpl,
+                'security'        => $this->get('mautic.security'),
+                'submissionModel' => $submissionModel,
             ],
             'contentTemplate' => 'MauticPageBundle:Page:list.html.php',
             'passthroughVars' => [
