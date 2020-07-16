@@ -686,7 +686,7 @@ class SubmissionModel extends CommonFormModel
         switch ($format) {
             case 'csv':
                 $response = new StreamedResponse(
-                    function () use ($results, $page, $translator) {
+                    function () use ($results, $translator) {
                         $handle = fopen('php://output', 'r+');
 
                         //build the header row
@@ -745,7 +745,7 @@ class SubmissionModel extends CommonFormModel
             case 'xlsx':
                 if (class_exists(Spreadsheet::class)) {
                     $response = new StreamedResponse(
-                        function () use ($results, $page, $translator, $name) {
+                        function () use ($results, $translator, $name) {
                             $objPHPExcel = new Spreadsheet();
                             $objPHPExcel->getProperties()->setTitle($name);
 
