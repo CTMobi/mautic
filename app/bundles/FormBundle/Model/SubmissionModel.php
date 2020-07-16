@@ -662,7 +662,7 @@ class SubmissionModel extends CommonFormModel
 
     /**
      * @param $format
-     * @param $form
+     * @param $page
      * @param $queryArgs
      *
      * @return StreamedResponse|Response
@@ -671,9 +671,9 @@ class SubmissionModel extends CommonFormModel
      */
     public function exportResultsForPage($format, $page, $queryArgs)
     {
-        $results     = $this->getEntitiesByPage($queryArgs);
-        $results     = $results['results'];
-        $translator  = $this->translator;
+        $results    = $this->getEntitiesByPage($queryArgs);
+        $results    = $results['results'];
+        $translator = $this->translator;
 
         $date = (new DateTimeHelper())->toLocalString();
         $name = str_replace(' ', '_', $date).'_'.$page->getAlias();
