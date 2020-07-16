@@ -490,11 +490,6 @@ class SubmissionModel extends CommonFormModel
         return $this->getRepository()->getEntitiesByPage($args);
     }
 
-    public function getSubmissionCountsFromPage($pageId, \DateTime $fromDate = null)
-    {
-        return $this->getRepository()->getSubmissionCountsFromPage($pageId, $fromDate);
-    }
-
     /**
      * @param $format
      * @param $form

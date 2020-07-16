@@ -154,8 +154,6 @@ class PageController extends FormController
         //retrieve a list of categories
         $categories = $this->getModel('page.page')->getLookupResults('category', '', 0);
 
-        $submissionModel = $this->getModel('form.submission');
-
         return $this->delegateView([
             'viewParameters' => [
                 'searchValue'     => $search,
@@ -167,7 +165,6 @@ class PageController extends FormController
                 'model'           => $model,
                 'tmpl'            => $tmpl,
                 'security'        => $this->get('mautic.security'),
-                'submissionModel' => $submissionModel,
             ],
             'contentTemplate' => 'MauticPageBundle:Page:list.html.php',
             'passthroughVars' => [
