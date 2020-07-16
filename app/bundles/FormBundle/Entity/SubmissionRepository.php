@@ -206,7 +206,9 @@ class SubmissionRepository extends CommonRepository
     }
 
     /**
-     * {@inheritdoc}
+     * Get all submissions that derive from a landing page.
+     *
+     * @return array<int,Submission>
      */
     public function getEntitiesByPage(array $args = [])
     {
