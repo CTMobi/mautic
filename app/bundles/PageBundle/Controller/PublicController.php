@@ -231,7 +231,9 @@ class PublicController extends CommonFormController
             }
 
             // Generate contents
-            $analytics = $this->get('mautic.helper.template.analytics')->getCode();
+            $analytics   = $this->get('mautic.helper.template.analytics')->getCode();
+            $gtmHeadCode = $this->get('mautic.helper.template.gtm')->getHeadGTMCode();
+            $gtmBodyCode = $this->get('mautic.helper.template.gtm')->getBodyGTMCode();
 
             $BCcontent = $entity->getContent();
             $content   = $entity->getCustomHtml();
@@ -269,6 +271,10 @@ class PublicController extends CommonFormController
             } else {
                 if (!empty($analytics)) {
                     $content = str_replace('</head>', $analytics."\n</head>", $content);
+                }
+                if (!empty($gtmHeadCode) && !empty($gtmBodyCode)) {
+                    $content = str_replace('</head>', $gtmHeadCode."\n</head>", $content);
+                    $content = str_replace('</body>', $gtmBodyCode."\n</body>", $content);
                 }
                 if ($entity->getNoIndex()) {
                     $content = str_replace('</head>', "<meta name=\"robots\" content=\"noindex\">\n</head>", $content);
@@ -313,7 +319,9 @@ class PublicController extends CommonFormController
             return $this->notFound();
         }
 
-        $analytics = $this->factory->getHelper('template.analytics')->getCode();
+        $analytics   = $this->factory->getHelper('template.analytics')->getCode();
+        $gtmHeadCode = $this->get('mautic.helper.template.gtm')->getHeadGTMCode();
+        $gtmBodyCode = $this->get('mautic.helper.template.gtm')->getBodyGTMCode();
 
         $BCcontent = $entity->getContent();
         $content   = $entity->getCustomHtml();
@@ -346,6 +354,10 @@ class PublicController extends CommonFormController
             $content = $response->getContent();
         } else {
             $content = str_replace('</head>', $analytics.$this->renderView('MauticPageBundle:Page:preview_header.html.php')."\n</head>", $content);
+            if (!empty($gtmHeadCode) && !empty($gtmBodyCode)) {
+                $content = str_replace('</head>', $gtmHeadCode."\n</head>", $content);
+                $content = str_replace('</body>', $gtmBodyCode."\n</body>", $content);
+            }
         }
 
         $dispatcher = $this->get('event_dispatcher');
