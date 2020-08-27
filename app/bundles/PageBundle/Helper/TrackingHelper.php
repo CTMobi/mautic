@@ -61,9 +61,8 @@ class TrackingHelper
     public function getEnabledServices()
     {
         $keys = [
-            'google_analytics'   => 'Google Analytics',
-            'facebook_pixel'     => 'Facebook Pixel',
-            'google_tag_manager' => 'Google Tag Manager',
+            'google_analytics' => 'Google Analytics',
+            'facebook_pixel'   => 'Facebook Pixel',
         ];
         $result = [];
         foreach ($keys as $key => $service) {
