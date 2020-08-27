@@ -22,6 +22,7 @@ use Mautic\CoreBundle\Helper\TemplatingHelper;
 use Mautic\CoreBundle\Helper\ThemeHelper;
 use Mautic\CoreBundle\Templating\Helper\AnalyticsHelper;
 use Mautic\CoreBundle\Templating\Helper\AssetsHelper;
+use Mautic\CoreBundle\Templating\Helper\GTMHelper;
 use Mautic\FormBundle\Entity\Form;
 use Mautic\FormBundle\Event\FormBuilderEvent;
 use Mautic\FormBundle\Event\SubmissionEvent;
@@ -48,6 +49,11 @@ class FormSubscriber implements EventSubscriberInterface
     private $analyticsHelper;
 
     /**
+     * @var GTMHelper
+     */
+    private $gtmHelper;
+
+    /**
      * @var AssetsHelper
      */
     private $assetsHelper;
@@ -71,6 +77,7 @@ class FormSubscriber implements EventSubscriberInterface
         AssetModel $assetModel,
         TranslatorInterface $translator,
         AnalyticsHelper $analyticsHelper,
+        GTMHelper $gtmHelper,
         AssetsHelper $assetsHelper,
         ThemeHelper $themeHelper,
         TemplatingHelper $templatingHelper,
@@ -79,6 +86,7 @@ class FormSubscriber implements EventSubscriberInterface
         $this->assetModel           = $assetModel;
         $this->translator           = $translator;
         $this->analyticsHelper      = $analyticsHelper;
+        $this->gtmHelper            = $gtmHelper;
         $this->assetsHelper         = $assetsHelper;
         $this->themeHelper          = $themeHelper;
         $this->templatingHelper     = $templatingHelper;
@@ -182,10 +190,17 @@ class FormSubscriber implements EventSubscriberInterface
             '%url%' => $url,
         ]);
 
-        $analytics = $this->analyticsHelper->getCode();
+        $analytics   = $this->analyticsHelper->getCode();
+        $gtmHeadCode = $gtmHelper->getHeadGTMCode();
+        $gtmBodyCode = $gtmHelper->getBodyGTMCode();
 
         if (!empty($analytics)) {
             $this->assetsHelper->addCustomDeclaration($analytics);
+        }
+
+        if (!empty($gtmHeadCode) && !empty($gtmBodyCode)) {
+            $this->factory->getHelper('template.assets')->addCustomDeclaration($gtmHeadCode);
+            $this->factory->getHelper('template.assets')->addCustomDeclaration($gtmBodyCode, 'bodyOpen');
         }
 
         $event->setPostSubmitResponse(new Response(
