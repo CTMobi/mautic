@@ -278,8 +278,10 @@ class PublicController extends CommonFormController
                     $content = str_replace('</head>', $analytics."\n</head>", $content);
                 }
                 if (!empty($gtmHeadCode) && !empty($gtmBodyCode)) {
-                    $content = str_replace('</head>', $gtmHeadCode."\n</head>", $content);
-                    $content = str_replace('</body>', $gtmBodyCode."\n</body>", $content);
+                    $content      = str_replace('<head>', "<head>\n".$gtmHeadCode, $content);
+                    $startBodyTag = stripos($content, '<body');
+                    $endBodyTag   = stripos($content, '>', $startBodyTag);
+                    $content      = substr_replace($content, $gtmBodyCode, $endBodyTag + 1, 0);
                 }
                 if ($entity->getNoIndex()) {
                     $content = str_replace('</head>', "<meta name=\"robots\" content=\"noindex\">\n</head>", $content);
@@ -365,8 +367,10 @@ class PublicController extends CommonFormController
         } else {
             $content = str_replace('</head>', $analytics.$this->renderView('MauticPageBundle:Page:preview_header.html.php')."\n</head>", $content);
             if (!empty($gtmHeadCode) && !empty($gtmBodyCode)) {
-                $content = str_replace('</head>', $gtmHeadCode."\n</head>", $content);
-                $content = str_replace('</body>', $gtmBodyCode."\n</body>", $content);
+                $content      = str_replace('<head>', "<head>\n".$gtmHeadCode, $content);
+                $startBodyTag = stripos($content, '<body');
+                $endBodyTag   = stripos($content, '>', $startBodyTag);
+                $content      = substr_replace($content, $gtmBodyCode, $endBodyTag + 1, 0);
             }
         }
 
