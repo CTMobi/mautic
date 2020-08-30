@@ -182,7 +182,7 @@ class FormSubscriber implements EventSubscriberInterface
             '%url%' => $url,
         ]);
 
-        $analytics   = $this->analyticsHelper->getCode();
+        $analytics = $this->analyticsHelper->getCode();
 
         if (!empty($analytics)) {
             $this->assetsHelper->addCustomDeclaration($analytics);
