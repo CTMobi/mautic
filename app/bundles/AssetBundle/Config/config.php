@@ -90,7 +90,6 @@ return [
                     'mautic.asset.model.asset',
                     'translator',
                     'mautic.helper.template.analytics',
-                    'mautic.helper.template.gtm',
                     'templating.helper.assets',
                     'mautic.helper.theme',
                     'mautic.helper.templating',
