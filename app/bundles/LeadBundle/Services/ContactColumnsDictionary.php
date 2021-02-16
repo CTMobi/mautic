@@ -60,6 +60,7 @@ class ContactColumnsDictionary
                 $this->translator->trans('mautic.core.lastname')
             );
             $this->fieldList['email']       = $this->translator->trans('mautic.core.type.email');
+            $this->fieldList['company']     = $this->translator->trans('mautic.core.company');
             $this->fieldList['location']    = $this->translator->trans('mautic.lead.lead.thead.location');
             $this->fieldList['stage']       = $this->translator->trans('mautic.lead.stage.label');
             $this->fieldList['points']      = $this->translator->trans('mautic.lead.points');
