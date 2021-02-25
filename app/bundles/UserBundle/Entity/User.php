@@ -48,6 +48,11 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     private $plainPassword;
 
     /**
+     * Used for generate automatic credentials to user.
+     */
+    private $automaticCredentials;
+
+    /**
      * Used for updating account.
      *
      * @var string
@@ -367,6 +372,16 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     }
 
     /**
+     * Get automatic credentials.
+     *
+     * @return bool
+     */
+    public function getAutomaticCredentials()
+    {
+        return $this->automaticCredentials;
+    }
+
+    /**
      * Get current password (that a user has typed into a form).
      *
      * @return string
@@ -479,6 +494,18 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Set automatic credentials.
+     *
+     * @return User
+     */
+    public function setAutomaticCredentials($automaticCredentials)
+    {
+        $this->automaticCredentials = $automaticCredentials;
 
         return $this;
     }
