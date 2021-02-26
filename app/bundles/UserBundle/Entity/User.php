@@ -275,7 +275,7 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
         $groups = ['User', 'SecondPass'];
 
         //check if creating a new user or editing an existing user and the password has been updated
-        if (!$data->getId() || ($data->getId() && $data->getPlainPassword())) {
+        if ((!$data->getId() && !$data->getAutomaticCredentials()) || ($data->getId() && $data->getPlainPassword())) {
             $groups[] = 'CheckPassword';
         }
 
