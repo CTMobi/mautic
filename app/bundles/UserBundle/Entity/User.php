@@ -48,9 +48,9 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     private $plainPassword;
 
     /**
-     * Used for generate automatic credentials to user.
+     * Used for generate automatic password to user.
      */
-    private $automaticCredentials;
+    private $automaticPassword;
 
     /**
      * Used for updating account.
@@ -275,7 +275,7 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
         $groups = ['User', 'SecondPass'];
 
         //check if creating a new user or editing an existing user and the password has been updated
-        if ((!$data->getId() && !$data->getAutomaticCredentials()) || ($data->getId() && $data->getPlainPassword())) {
+        if ((!$data->getId() && !$data->getAutomaticPassword()) || ($data->getId() && $data->getPlainPassword())) {
             $groups[] = 'CheckPassword';
         }
 
@@ -372,13 +372,13 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     }
 
     /**
-     * Get automatic credentials.
+     * Get automatic password.
      *
      * @return bool
      */
-    public function getAutomaticCredentials()
+    public function getAutomaticPassword()
     {
-        return $this->automaticCredentials;
+        return $this->automaticPassword;
     }
 
     /**
@@ -499,13 +499,13 @@ class User extends FormEntity implements AdvancedUserInterface, \Serializable, E
     }
 
     /**
-     * Set automatic credentials.
+     * Set automatic password.
      *
      * @return User
      */
-    public function setAutomaticCredentials($automaticCredentials)
+    public function setAutomaticPassword($automaticPassword)
     {
-        $this->automaticCredentials = $automaticCredentials;
+        $this->automaticPassword = $automaticPassword;
 
         return $this;
     }
